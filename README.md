@@ -1,9 +1,9 @@
-# FCP Auto Telop 🎬
+# FCP Creator Kit 🎬
 
 **Final Cut Pro のテロップ作業を自動化する Python ツールキット**
 
 動画1本あたりのテロップ作業を **約75%短縮** します。
-合成音声（VOICEVOX / AquesTalk）と生声収録の両方に対応。
+合成音声（VOICEVOX / AquesTalk）とナレーション収録の両方に対応。
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![Platform](https://img.shields.io/badge/Platform-macOS-lightgrey)
@@ -22,7 +22,7 @@ Final Cut Pro のタイムライン上で直接テキストクリップを分割
 | ワークフロー | 説明 |
 |---|---|
 | **合成音声ルート** | シナリオ（CSV）→ AquesTalk で音声生成 → FCP でテロップ自動挿入 |
-| **生声ルート** | 録音 → Whisper で文字起こし（VTT）→ FCP でテロップ自動挿入 |
+| **ナレーションルート** | 録音 → Whisper で文字起こし（VTT）→ FCP でテロップ自動挿入 |
 
 ### なぜ VREW や AI キャプションではなく、このツール？
 
@@ -35,7 +35,7 @@ Final Cut Pro のタイムライン上で直接テキストクリップを分割
 ## ディレクトリ構成
 
 ```
-fcp-auto-telop/
+fcp-creator-kit/
 ├── scripts/                    # 自動化スクリプト
 │   ├── auto_fcp_telop_split_paste.py
 │   ├── auto_fcp_telop_paste.py
@@ -50,13 +50,15 @@ fcp-auto-telop/
 │   └── sample.csv
 ├── txt_input/                  # セリフ TXT を配置
 │   └── sample.txt
-├── audio_input/                # 音声ファイルを配置（生声ルート）
+├── audio_input/                # 音声ファイルを配置（ナレーションルート）
 ├── vtt_input/                  # VTT ファイルを配置
 │   └── sample.vtt
 ├── srt_input/                  # SRT ファイルを配置
 │   └── sample.srt
 ├── vtt_output/                 # Whisper の文字起こし結果が出力される
 ├── wav_output/                 # AquesTalk の音声ファイルを配置
+├── xml_output/                 # FCPXML ファイルが出力される
+│   └── sample.fcpxml
 ├── requirements.txt
 └── README.md
 ```
@@ -66,7 +68,7 @@ fcp-auto-telop/
 | スクリプト | 機能 | 入力 | 出力 |
 |---|---|---|---|
 | `auto_fcp_telop_split_paste.py` | FCP 上でテキストクリップの分割とセリフの貼り付けを一括実行 | `txt_input/*.txt` | FCP タイムライン |
-| `auto_fcp_telop_paste.py` | 分割済みクリップへセリフを貼り付け（合成音声・生声切替可） | `txt_input/*.txt` | FCP タイムライン |
+| `auto_fcp_telop_paste.py` | 分割済みクリップへセリフを貼り付け（合成音声・ナレーション切替可） | `txt_input/*.txt` | FCP タイムライン |
 | `auto_fcp_vtt_to_telop.py` | VTT の時刻でクリップを分割し、セリフを貼り付け | `vtt_input/*.vtt` | FCP タイムライン |
 | `auto_fcp_vtt_srt_to_telop.py` | VTT / SRT の時刻でクリップを分割し、セリフを貼り付け（統合版） | `vtt_input/*.vtt` または `srt_input/*.srt` | FCP タイムライン |
 | `auto_audio_to_vtt.py` | faster-whisper で音声ファイルを文字起こし | `audio_input/*` | `vtt_output/*.vtt` |
@@ -82,8 +84,8 @@ fcp-auto-telop/
 ### 1. 環境構築
 
 ```bash
-git clone git@github.com:imin-minnade/note_articles.git
-cd fcp-auto-telop
+git clone git@github.com:imin-minnade/fcp-creator-kit.git
+cd fcp-creator-kit
 pip install -r requirements.txt
 ```
 
@@ -119,7 +121,7 @@ python scripts/swap_title_number.py
 python scripts/auto_fcp_telop_split_paste.py
 ```
 
-### 3B. 生声ルート
+### 3B. ナレーションルート
 
 1. 音声ファイルを `audio_input/` に配置
 2. Whisper で文字起こし：
@@ -145,7 +147,7 @@ python scripts/auto_fcp_vtt_srt_to_telop.py
 
 すでにクリップが分割済みの状態からセリフだけ貼り付けたい場合は `auto_fcp_telop_paste.py` を使用します。例えば、日本語セリフを英語セリフに入れ替えるときなどを想定しています。
 
-生声の場合は `LIVE_VOICE = True` に設定してください。
+ナレーションの場合は `LIVE_VOICE = True` に設定してください。
 
 ---
 
