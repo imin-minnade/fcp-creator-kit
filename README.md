@@ -45,7 +45,9 @@ fcp-creator-kit/
 │   ├── auto_aques_talk_player.py
 │   ├── swap_title_number.py
 │   ├── vtt_timestamp_checker.py
+│   ├── convert_xml_to_capter.py
 │   └── get_mouse_positions.py
+├── xml_input/                  # FCPXML ファイルを配置（チャプター生成用）
 ├── csv_input/                  # シナリオ CSV を配置
 │   └── sample.csv
 ├── txt_input/                  # セリフ TXT を配置
@@ -75,6 +77,7 @@ fcp-creator-kit/
 | `auto_aques_talk_player.py` | AquesTalk Player への読み上げテキスト自動入力 | `csv_input/*.csv` | `wav_output/*.wav` |
 | `swap_title_number.py` | WAV ファイル名を「セリフ_番号」→「番号_セリフ」にリネーム | `wav_output/*.wav` | `wav_output/*.wav` |
 | `vtt_timestamp_checker.py` | VTT のタイムスタンプ重なりをチェック | `vtt_input/*.vtt` | 標準出力 |
+| `convert_xml_to_capter.py` | FCPXML のマーカーから YouTube チャプターリストを生成 | `xml_input/info.fcpxml` | `xml_output/info_chapters.txt` |
 | `get_mouse_positions.py` | クリックした画面座標を表示 | マウス操作 | 座標値の表示 |
 
 ---
@@ -142,6 +145,31 @@ python scripts/vtt_timestamp_checker.py
 ```bash
 python scripts/auto_fcp_vtt_srt_to_telop.py
 ```
+
+### 3C. YouTube チャプター生成
+
+FCP のマーカーから YouTube チャプターリストを自動生成します。
+
+#### FCPXML の取り出し方
+
+FCP から「ファイル」→「XML を書き出す」で書き出すと、拡張子 `.fcpxmld` のファイルが生成されます。これは**圧縮パッケージ**のため、そのままでは読み込めません。
+
+Finder で `.fcpxmld` ファイルを右クリック →「**パッケージの内容を表示**」を選択すると、中に `info.fcpxml` が見つかります。これを `xml_input/` フォルダに配置してください。
+
+```
+your_project.fcpxmld/   ← 右クリック →「パッケージの内容を表示」
+└── info.fcpxml          ← これを xml_input/ にコピー
+```
+
+#### 実行
+
+```bash
+python scripts/convert_xml_to_capter.py
+```
+
+`xml_output/info_chapters.txt` にチャプターリストが出力されます。タイムライン上のマーカー（`marker` / `chapter-marker`）が対象です。先頭が `00:00` でない場合は `Introduction` が自動補完されます。
+
+---
 
 ### 4. テロップの文字を入れ替え
 
