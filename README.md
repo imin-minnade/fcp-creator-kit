@@ -1,5 +1,7 @@
 # FCP Creator Kit 🎬
 
+日本語 | [English](README.en.md)
+
 **Final Cut Pro のテロップ作業を自動化する Python ツールキット**
 
 動画1本あたりのテロップ作業を **約75%短縮** します。
@@ -59,7 +61,7 @@ fcp-creator-kit/
 │   └── sample.srt
 ├── vtt_output/                 # Whisper の文字起こし結果が出力される
 ├── wav_output/                 # AquesTalk の音声ファイルを配置
-├── xml_output/                 # FCPXML ファイルが出力される
+├── xml_output/                 # チャプターリストなどが出力される
 │   └── sample.fcpxml
 ├── requirements.txt
 └── README.md
