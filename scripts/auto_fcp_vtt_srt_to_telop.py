@@ -243,6 +243,9 @@ def focus_text_field_first_time():
     """インスペクタ内のテキストフィールドをクリックしてフォーカスを当てる"""
     pyautogui.click(INPUT_X, INPUT_Y)
     time.sleep(SLEEP_SHORT)
+    # 【バグ修正】テキストエリアを確実に有効化するため2度目のクリックをする
+    pyautogui.click(INPUT_X, INPUT_Y)
+    time.sleep(SLEEP_CLIP_MOVE)
 
 def paste_text(text: str):
     """テキストフィールドに text をペースト（Cmd+V）"""

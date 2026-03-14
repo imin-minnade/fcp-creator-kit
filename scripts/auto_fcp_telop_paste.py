@@ -138,6 +138,9 @@ def main():
         if i == 0:
             # 最初はテキストエリアをクリック
             pyautogui.click(INPUT_X, INPUT_Y)
+            time.sleep(SLEEP_SHORT)
+            # 【バグ修正】テキストエリアを確実に有効化するため2度目のクリックをする
+            pyautogui.click(INPUT_X, INPUT_Y)
             time.sleep(SLEEP_LONG)
         else:
             # 2回目以降は Tab で移動
