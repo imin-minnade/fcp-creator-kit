@@ -47,7 +47,7 @@ fcp-creator-kit/
 │   ├── auto_aques_talk_player.py
 │   ├── swap_title_number.py
 │   ├── vtt_timestamp_checker.py
-│   ├── convert_xml_to_capter.py
+│   ├── convert_xml_to_chapter.py
 │   └── get_mouse_positions.py
 ├── xml_input/                  # Place FCPXML files here (for chapter generation)
 ├── csv_input/                  # Place scenario CSV files here
@@ -79,7 +79,7 @@ fcp-creator-kit/
 | `auto_aques_talk_player.py` | Auto-input text to AquesTalk Player for speech synthesis | `csv_input/*.csv` | `wav_output/*.wav` |
 | `swap_title_number.py` | Rename WAV files from "dialogue_number" → "number_dialogue" | `wav_output/*.wav` | `wav_output/*.wav` |
 | `vtt_timestamp_checker.py` | Check for overlapping timestamps in VTT files | `vtt_input/*.vtt` | stdout |
-| `convert_xml_to_capter.py` | Generate YouTube chapter list from FCPXML markers | `xml_input/info.fcpxml` | `xml_output/info_chapters.txt` |
+| `convert_xml_to_chapter.py` | Generate YouTube chapter list from FCPXML markers | `xml_input/info.fcpxml` | `xml_output/info_chapters.txt` |
 | `get_mouse_positions.py` | Display screen coordinates on click | Mouse operation | Coordinate values |
 
 ---
@@ -166,7 +166,7 @@ your_project.fcpxmld/   ← Right-click → "Show Package Contents"
 #### Run
 
 ```bash
-python scripts/convert_xml_to_capter.py
+python scripts/convert_xml_to_chapter.py
 ```
 
 The chapter list is output to `xml_output/info_chapters.txt`. All `marker` and `chapter-marker` elements on the timeline are processed. If the first marker is not at `00:00`, an `Introduction` entry is automatically prepended.
