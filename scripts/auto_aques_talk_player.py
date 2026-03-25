@@ -76,7 +76,7 @@ modifier_key = "command" if platform.system() == "Darwin" else "ctrl"
 count = 0
 for _, row in df.iterrows():
     # 実行条件のチェック
-    if pd.isna(row["実行"]) or row["実行"] != 1:
+    if pd.isna(row["実行"]) or row["実行"] == 0:
         continue
 
     # 対象キャラクターのチェック
